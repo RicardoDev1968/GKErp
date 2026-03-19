@@ -1,9 +1,9 @@
 <template>
   <pagina-do-ze
-      titulo="Pagina de teste do ze"
-      subtitulo="Subtitulo de teste do ze"
-      :formulario="modal"
-      @cancelar="modal = false"
+      titulo="Gerenciamento de Produtos"
+      subtitulo="Cadastre e gerencie os produtos do seu estoque"
+      :formulario.sync="modal"
+      @salvar="teste($event)"
     >
     <template v-slot:formulario>
       <v-form>
@@ -75,15 +75,15 @@ export default {
     modal: false,
     desserts: [
       {
-        name: 'Iorgute',
-        calories: 159,
+        name: 'Whey Protein',
+        calories: 700,
         fat: 6.0,
-        carbs: 24,
-        protein: 4.0,
+        carbs: 200,
+        protein: 8.0,
         iron: 1
       },
       {
-        name: 'Iorgute',
+        name: 'Creatina',
         calories: 159,
         fat: 6.0,
         carbs: 24,
@@ -94,16 +94,16 @@ export default {
 
     headers: [
       {
-        text: 'Dessert (100g serving)',
+        text: 'Sobremesa (porção 100g)',
         align: 'start',
         sortable: false,
         value: 'name'
       },
-      { text: 'Calories', value: 'calories' },
-      { text: 'Fat (g)', value: 'fat' },
-      { text: 'Carbs (g)', value: 'carbs' },
-      { text: 'Protein (g)', value: 'protein' },
-      { text: 'Iron (%)', value: 'iron' }
+      { text: 'Calorias', value: 'calories' },
+      { text: 'Gordura (g)', value: 'fat' },
+      { text: 'Carboidratos (g)', value: 'carbs' },
+      { text: 'Proteína (g)', value: 'protein' },
+      { text: 'Ferro (%)', value: 'iron' }
     ],
 
     filtro: {
@@ -123,6 +123,9 @@ export default {
         codigo: '',
         descricao: ''
       }
+    },
+    teste (parametro) {
+      console.log(parametro)
     }
   }
 }
