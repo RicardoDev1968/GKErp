@@ -1,44 +1,59 @@
 <template>
-  <v-container fluid class="pa-0">
-    <v-row dense class="grey lighten-3 mb-3">
-      <v-col class="py-2 px-3">
-        <span class="font-weight-bold">{{ titulo }} | </span>{{ subtitulo }}
+  <v-container fluid class="pa-6">
+    <v-row dense class="mb-4">
+      <v-col cols="12">
+        <div class="page-header">
+          <div class="page-title">
+            {{ titulo }}
+          </div>
+          <div class="page-subtitle">
+            {{ subtitulo }}
+          </div>
+        </div>
       </v-col>
     </v-row>
 
     <slot v-if="!formulario" name="listagem" />
 
-    <v-row v-if="formulario">
-      <v-col>
-        <v-card class="pa-3">
-          <v-card-title>Informações do registro</v-card-title>
+    <v-row v-if="formulario" dense>
+      <v-col cols="12">
+        <v-card class="page-form-card" elevation="2">
+          <v-card-title class="font-weight-bold">
+            Informações do registro
+          </v-card-title>
 
           <v-divider />
 
-          <v-card-text>
+          <v-card-text class="pt-4">
             <slot name="formulario" />
           </v-card-text>
 
           <v-divider />
 
-          <v-card-actions class="justify-end">
-            <v-btn color="pink" class="white--text">
+          <v-card-actions class="justify-end px-4 py-3">
+            <v-btn
+              color="#ec4899"
+              dark
+              depressed
+            >
               <v-icon left>mdi-pencil</v-icon>
               Editar
             </v-btn>
 
             <v-btn
-              color="purple"
-              class="white--text"
-              @click="$emit('salvar', { id: 1, nome: 'Zé' })"
+              color="#6d28d9"
+              dark
+              depressed
+              @click="$emit('salvar')"
             >
               <v-icon left>mdi-content-save</v-icon>
               Salvar
             </v-btn>
 
             <v-btn
-              color="black"
-              class="white--text"
+              color="#1f2937"
+              dark
+              depressed
               @click="$emit('update:formulario', false)"
             >
               <v-icon left>mdi-cancel</v-icon>
@@ -71,3 +86,28 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.page-header {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 18px 20px;
+  border: 1px solid #ebebeb;
+}
+
+.page-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.page-subtitle {
+  margin-top: 4px;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.page-form-card {
+  border-radius: 14px;
+}
+</style>

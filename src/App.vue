@@ -1,97 +1,99 @@
 <template>
   <v-app>
-    <v-navigation-drawer
-      v-model="drawer"
-      app
-      width="220"
-      color="#f7f7f7"
-      class="drawer-custom"
-    >
-    <v-list-item to="/" class="drawer-header" color="white">
-      <div>
-        <div class="drawer-brand">
-          <v-img
-            src="@/assets/logo.png"
-            max-width="50"
-            max-height="50"
-            contain
-            class="md-0"
-          />
-          <span class="logo-text">ERP</span>
-        </div>
-      </div>
-    </v-list-item>
-      <v-list dense nav class="pt-2">
-        <v-list-item link class="menu-item" to="/">
-          <v-list-item-icon>
-            <v-icon>mdi-home</v-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title >Início
-            </v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-
-        <v-list-item link class="menu-item">
-          <v-list-item-icon>
-            <v-icon>mdi-package-variant</v-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title>Estoque</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-
-        <v-list-item link class="menu-item">
-          <v-list-item-icon>
-            <v-icon>mdi-account</v-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title>Usuários</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-
-        <v-list-item link class="menu-item">
-          <v-list-item-icon>
-            <v-icon>mdi-chart-bar</v-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title>Relatórios</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
-
     <v-app-bar
       app
-      color="purple"
-      dark
       flat
-      height="70"
-      class="appbar-custom"
+      color="white"
+      height="74"
+      class="topbar"
     >
-      <v-app-bar-nav-icon @click="drawer = !drawer" />
+      <div class="app-logo" @click="$router.push('/')">
+        <img
+          src="@/assets/logo.png"
+          alt="GK Logo"
+          class="logo-img"
+        >
+        <span class="logo-text">ERP</span>
+      </div>
+
+      <v-btn
+        icon
+        class="mx-2"
+        color="#8e8e8e"
+      >
+        <v-icon>mdi-chevron-left</v-icon>
+      </v-btn>
+
+      <div class="menu-wrapper">
+        <v-btn
+          v-for="item in menuItems"
+          :key="item.label"
+          text
+          class="menu-btn"
+        >
+          <span>{{ item.label }}</span>
+          <v-icon
+            small
+            right
+            color="#0b6835"
+          >
+            {{ item.icon }}
+          </v-icon>
+        </v-btn>
+      </div>
 
       <v-spacer />
-      <div class="search-wrapper">
+
+      <div class="search-box mr-3">
         <v-text-field
           dense
+          flat
           solo
           hide-details
           prepend-inner-icon="mdi-magnify"
-          placeholder="Pesquise pela descrição da página..."
-          class="search-bar"
+          placeholder="Pesquise pelo menu"
         />
       </div>
 
-      <v-btn icon class="user-btn ml-3" @click="efetuarlogin">
-        <v-icon size="40">mdi-account-circle</v-icon>
+      <v-menu offset-y>
+        <template #activator="{ on, attrs }">
+          <v-btn
+            color="#0b6835"
+            dark
+            depressed
+            class="mr-3 user-sector-btn"
+            v-bind="attrs"
+            v-on="on"
+          >
+            MT
+            <v-icon right small>mdi-menu-down</v-icon>
+          </v-btn>
+        </template>
+
+        <v-list dense>
+          <v-list-item>
+            <v-list-item-title>MT</v-list-item-title>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-title>ADM</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+
+      <v-btn icon color="#0b6835" class="mr-2">
+        <v-icon>mdi-star</v-icon>
       </v-btn>
-      <v-btn icon class="user-btn ml-3" to="/about">
-        <v-icon size="40" left>mdi-information</v-icon>
+
+      <v-btn icon color="#0b6835" class="mr-3">
+        <v-icon>mdi-store</v-icon>
       </v-btn>
+
+      <v-avatar color="#0b6835" size="42" class="user-avatar">
+        <span class="white--text font-weight-bold">RI</span>
+      </v-avatar>
     </v-app-bar>
 
-    <v-main class="main-content grey lighten-4">
+    <v-main class="main-bg">
       <router-view />
     </v-main>
   </v-app>
@@ -102,83 +104,90 @@ export default {
   name: 'App',
 
   data: () => ({
-    drawer: true
-  }),
-  methods: {
-    efetuarlogin () {
-      this.$router.push('/login')
-    }
-  }
+    menuItems: [
+      { label: 'LOJA', icon: 'mdi-storefront-outline' },
+      { label: 'TRANSPORTE', icon: 'mdi-truck-outline' },
+      { label: 'FINANCEIRO', icon: 'mdi-finance' },
+      { label: 'VENDA ATACADO', icon: 'mdi-cart-outline' },
+      { label: 'TI', icon: 'mdi-monitor-dashboard' },
+      { label: 'PRECIFICAÇÃO', icon: 'mdi-file-document-outline' },
+      { label: 'COMPRAS', icon: 'mdi-package-variant-closed' },
+      { label: 'PCM', icon: 'mdi-tools' },
+      { label: 'CRÉDITO', icon: 'mdi-cash-multiple' },
+      { label: 'DRH', icon: 'mdi-account-group-outline' },
+      { label: 'SEGURANÇA', icon: 'mdi-shield-outline' }
+    ]
+  })
 }
 </script>
 
-<style>
-.drawer-custom {
-  border-right: 1px solid #e0e0e0;
+<style scoped>
+.topbar {
+  border-bottom: 1px solid #e7e7e7;
 }
 
-.drawer-header {
-  height: 70px;
-  background: purple;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 16px;
-  overflow: hidden;
+.main-bg {
+  background: #f5f5f5;
 }
 
-.drawer-brand {
-  width: 100%;
+.app-logo {
   display: flex;
   align-items: center;
-  justify-content: center;
+  cursor: pointer;
+  min-width: 130px;
 }
 
 .logo-img {
-  flex-shrink: 0;
-  margin-right: 10px;
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
 }
 
 .logo-text {
-  color: white;
-  font-size: 28px;
-  font-weight: 800;
-  letter-spacing: 1px;
-  line-height: 1;
+  margin-left: 8px;
+  font-size: 24px;
+  font-weight: 700;
+  color: #0b6835;
+  letter-spacing: 0.5px;
 }
 
-.appbar-custom {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+.menu-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  overflow-x: auto;
+  scrollbar-width: none;
 }
 
-.search-wrapper {
-  width: 100%;
-  max-width: 420px;
+.menu-wrapper::-webkit-scrollbar {
+  display: none;
 }
 
-.search-bar .v-input__slot {
-  background: white !important;
-  border-radius: 10px !important;
+.menu-btn {
+  min-width: auto !important;
+  font-size: 12px;
+  font-weight: 600;
+  color: #0b6835 !important;
+  letter-spacing: 0.7px;
 }
 
-.search-bar input::placeholder {
-  color: #666 !important;
-  opacity: 1;
+.search-box {
+  width: 240px;
 }
 
-.user-btn {
-  margin-right: 4px;
+.search-box :deep(.v-input__slot) {
+  border-radius: 18px !important;
+  background: #f0f0f0 !important;
+  box-shadow: none !important;
 }
 
-.main-content {
-  padding: 12px;
+.user-sector-btn {
+  border-radius: 8px;
+  text-transform: none;
+  font-weight: 700;
 }
 
-.menu-item {
-  min-height: 46px !important;
-}
-
-.menu-item .v-list-item__title {
-  font-weight: 500;
+.user-avatar {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 </style>

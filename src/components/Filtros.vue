@@ -1,36 +1,52 @@
 <template>
-    <div>
-        <v-row dense>
-      <v-col>
-        <v-card style="background-color: white !important;">
-          <v-card-title>
-            Filtro do Sistema
-          </v-card-title>
-          <v-divider></v-divider>
+  <v-row dense>
+    <v-col cols="12">
+      <v-card class="filtro-card" elevation="1">
+        <v-card-title class="filtro-title">
+          Filtro do Sistema
+        </v-card-title>
 
-          <v-card-text class="py-1">
-            <slot />
-          </v-card-text>
+        <v-divider />
 
-          <v-divider></v-divider>
-          <v-card-actions class="justify-end">
-            <v-btn color="purple" class="white--text" @click="$emit('adicionar')">
-               <v-icon color="white" left> mdi-plus-circle </v-icon>
-               Adicionar
-            </v-btn>
-            <v-btn color="pink" class="white--text">
-              <v-icon color="white" left> mdi-magnify </v-icon>
-              Pesquisar
-            </v-btn>
-            <v-btn color="black" class="white--text" @click="$emit('limparFiltros')">
-              <v-icon color="white" left> mdi-cancel </v-icon>
-              Limpar Filtros
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-col>
-    </v-row>
-    </div>
+        <v-card-text class="py-4">
+          <slot />
+        </v-card-text>
+
+        <v-divider />
+
+        <v-card-actions class="justify-end px-4 py-3">
+          <v-btn
+            color="#6d28d9"
+            dark
+            depressed
+            @click="$emit('adicionar')"
+          >
+            <v-icon left>mdi-plus-circle</v-icon>
+            Adicionar
+          </v-btn>
+
+          <v-btn
+            color="#0b6835"
+            dark
+            depressed
+          >
+            <v-icon left>mdi-magnify</v-icon>
+            Pesquisar
+          </v-btn>
+
+          <v-btn
+            color="#1f2937"
+            dark
+            depressed
+            @click="$emit('limparFiltros')"
+          >
+            <v-icon left>mdi-cancel</v-icon>
+            Limpar Filtros
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
@@ -39,8 +55,15 @@ export default {
 }
 </script>
 
-<style>
-.card-filtro {
-  background-color: #ffffff !important;
+<style scoped>
+.filtro-card {
+  border-radius: 14px;
+  background: #ffffff !important;
+}
+
+.filtro-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1f2937;
 }
 </style>

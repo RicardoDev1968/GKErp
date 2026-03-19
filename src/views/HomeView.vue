@@ -1,27 +1,57 @@
 <template>
   <pagina-do-ze
-      titulo="Gerenciamento de Produtos"
-      subtitulo="Cadastre e gerencie os produtos do seu estoque"
-      :formulario.sync="modal"
-      @salvar="teste($event)"
-    >
-    <template v-slot:formulario>
+    titulo="Gerenciamento de Produtos"
+    subtitulo="Cadastre e gerencie os produtos do seu estoque"
+    :formulario.sync="modal"
+    @salvar="salvarProduto"
+  >
+    <template #formulario>
       <v-form>
-      <v-container fluid>
+        <v-container fluid>
+          <v-row dense>
+            <v-col cols="12" md="3">
+              <v-text-field
+                v-model="formulario.codigo"
+                dense
+                outlined
+                label="Código"
+                hide-details
+              />
+            </v-col>
+
+            <v-col cols="12" md="9">
+              <v-text-field
+                v-model="formulario.descricao"
+                dense
+                outlined
+                label="Descrição"
+                hide-details
+              />
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-form>
+    </template>
+
+    <template #listagem>
+      <filtro-do-ze
+        @limparFiltros="limparFiltros"
+        @adicionar="abrirModal"
+      >
         <v-row dense>
-          <v-col cols="12" xl="2" lg="4" md="8" xs="12">
+          <v-col cols="12" md="3">
             <v-text-field
-              v-model="formulario.codigo"
+              v-model="filtro.codigo"
               dense
               outlined
-              label="Codigo"
+              label="Código"
               hide-details
             />
           </v-col>
 
-          <v-col cols="12" xl="10" lg="8" md="6" xs="12">
+          <v-col cols="12" md="9">
             <v-text-field
-              v-model="formulario.descricao"
+              v-model="filtro.descricao"
               dense
               outlined
               label="Descrição"
@@ -29,41 +59,13 @@
             />
           </v-col>
         </v-row>
-      </v-container>
-    </v-form>
+      </filtro-do-ze>
+
+      <tabela-do-ze
+        :colunas="headers"
+        :registros="produtosFiltrados"
+      />
     </template>
-    <template v-slot:listagem>
-      <filtro-do-ze @limparFiltros="limparFiltros" @adicionar="modal = true">
-      <v-row dense>
-        <v-col cols="12" xl="2" lg="4" md="8" xs="12">
-          <v-text-field
-            v-model="filtro.codigo"
-            dense
-            outlined
-            label="Codigo"
-            hide-details
-          />
-        </v-col>
-
-        <v-col cols="12" xl="10" lg="8" md="6" xs="12">
-          <v-text-field
-            v-model="filtro.descricao"
-            dense
-            outlined
-            label="Descrição"
-            hide-details
-          />
-        </v-col>
-      </v-row>
-    </filtro-do-ze>
-    <tabela-do-ze
-      :colunas="headers"
-      :registros="desserts"
-    />
-
-    </template>
-
-    <!-- Formulario -->
   </pagina-do-ze>
 </template>
 
@@ -73,37 +75,37 @@ export default {
 
   data: () => ({
     modal: false,
-    desserts: [
-      {
-        name: 'Whey Protein',
-        calories: 700,
-        fat: 6.0,
-        carbs: 200,
-        protein: 8.0,
-        iron: 1
-      },
-      {
-        name: 'Creatina',
-        calories: 159,
-        fat: 6.0,
-        carbs: 24,
-        protein: 4.0,
-        iron: 1
-      }
-    ],
 
     headers: [
+      { text: 'Código', value: 'codigo' },
+      { text: 'Descrição', value: 'descricao' },
+      { text: 'Categoria', value: 'categoria' },
+      { text: 'Preço', value: 'preco' },
+      { text: 'Estoque', value: 'estoque' }
+    ],
+
+    produtos: [
       {
-        text: 'Sobremesa (porção 100g)',
-        align: 'start',
-        sortable: false,
-        value: 'name'
+        codigo: '001',
+        descricao: 'Whey Protein Concentrado',
+        categoria: 'Suplemento',
+        preco: 'R$ 129,90',
+        estoque: 18
       },
-      { text: 'Calorias', value: 'calories' },
-      { text: 'Gordura (g)', value: 'fat' },
-      { text: 'Carboidratos (g)', value: 'carbs' },
-      { text: 'Proteína (g)', value: 'protein' },
-      { text: 'Ferro (%)', value: 'iron' }
+      {
+        codigo: '002',
+        descricao: 'Creatina 300g',
+        categoria: 'Suplemento',
+        preco: 'R$ 89,90',
+        estoque: 32
+      },
+      {
+        codigo: '003',
+        descricao: 'Coqueteleira 700ml',
+        categoria: 'Acessório',
+        preco: 'R$ 24,90',
+        estoque: 45
+      }
     ],
 
     filtro: {
@@ -117,15 +119,55 @@ export default {
     }
   }),
 
+  computed: {
+    produtosFiltrados () {
+      return this.produtos.filter(item => {
+        const codigoOk = !this.filtro.codigo ||
+          item.codigo.toLowerCase().includes(this.filtro.codigo.toLowerCase())
+
+        const descricaoOk = !this.filtro.descricao ||
+          item.descricao.toLowerCase().includes(this.filtro.descricao.toLowerCase())
+
+        return codigoOk && descricaoOk
+      })
+    }
+  },
+
   methods: {
+    abrirModal () {
+      this.formulario = {
+        codigo: '',
+        descricao: ''
+      }
+      this.modal = true
+    },
+
     limparFiltros () {
       this.filtro = {
         codigo: '',
         descricao: ''
       }
     },
-    teste (parametro) {
-      console.log(parametro)
+
+    salvarProduto () {
+      if (!this.formulario.codigo || !this.formulario.descricao) {
+        return
+      }
+
+      this.produtos.unshift({
+        codigo: this.formulario.codigo,
+        descricao: this.formulario.descricao,
+        categoria: 'Novo produto',
+        preco: 'R$ 0,00',
+        estoque: 0
+      })
+
+      this.formulario = {
+        codigo: '',
+        descricao: ''
+      }
+
+      this.modal = false
     }
   }
 }
