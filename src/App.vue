@@ -123,31 +123,32 @@ export default {
 
 <style scoped>
 .topbar {
-  border-bottom: 1px solid #e7e7e7;
+  border-bottom: 1px solid #ddd6fe;
+  background: linear-gradient(90deg, #111827 0%, #1e1b4b 45%, #312e81 100%) !important;
 }
 
 .main-bg {
-  background: #f5f5f5;
+  background: #f5f3ff;
 }
 
 .app-logo {
   display: flex;
   align-items: center;
   cursor: pointer;
-  min-width: 130px;
+  min-width: 150px;
 }
 
 .logo-img {
-  width: 38px;
-  height: 38px;
+  width: 60px;
+  height: 60px;
   object-fit: contain;
 }
 
 .logo-text {
-  margin-left: 8px;
-  font-size: 24px;
-  font-weight: 700;
-  color: #0b6835;
+  margin-left: 10px;
+  font-size: 30px;
+  font-weight: 800;
+  color: #ffffff;
   letter-spacing: 0.5px;
 }
 
@@ -166,18 +167,22 @@ export default {
 .menu-btn {
   min-width: auto !important;
   font-size: 12px;
-  font-weight: 600;
-  color: #0b6835 !important;
+  font-weight: 700;
+  color: #e9d5ff !important;
   letter-spacing: 0.7px;
 }
 
+.menu-btn:hover {
+  color: #ffffff !important;
+}
+
 .search-box {
-  width: 240px;
+  width: 250px;
 }
 
 .search-box :deep(.v-input__slot) {
   border-radius: 18px !important;
-  background: #f0f0f0 !important;
+  background: #ede9fe !important;
   box-shadow: none !important;
 }
 
@@ -185,9 +190,11 @@ export default {
   border-radius: 8px;
   text-transform: none;
   font-weight: 700;
+  background: #7c3aed !important;
 }
 
 .user-avatar {
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  background: #2563eb !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
 }
 </style>

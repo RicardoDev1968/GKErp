@@ -42,6 +42,7 @@ export default {
 .tabela-card {
   border-radius: 14px;
   overflow: hidden;
+  border: 1px solid #ddd6fe;
 }
 
 .tabela-custom {

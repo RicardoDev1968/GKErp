@@ -89,16 +89,16 @@ export default {
 
 <style scoped>
 .page-header {
-  background: #ffffff;
+  background: linear-gradient(135deg, #ffffff 0%, #f5f3ff 100%);
   border-radius: 14px;
   padding: 18px 20px;
-  border: 1px solid #ebebeb;
+  border: 1px solid #ddd6fe;
 }
 
 .page-title {
   font-size: 24px;
   font-weight: 700;
-  color: #1f2937;
+  color: #111827;
 }
 
 .page-subtitle {
@@ -109,5 +109,6 @@ export default {
 
 .page-form-card {
   border-radius: 14px;
+  border: 1px solid #ddd6fe;
 }
 </style>

@@ -16,7 +16,7 @@
 
         <v-card-actions class="justify-end px-4 py-3">
           <v-btn
-            color="#6d28d9"
+            color="#7C3AED"
             dark
             depressed
             @click="$emit('adicionar')"
@@ -26,7 +26,7 @@
           </v-btn>
 
           <v-btn
-            color="#0b6835"
+            color="#2563EB"
             dark
             depressed
           >
@@ -35,7 +35,7 @@
           </v-btn>
 
           <v-btn
-            color="#1f2937"
+            color="#111827"
             dark
             depressed
             @click="$emit('limparFiltros')"
@@ -59,11 +59,12 @@ export default {
 .filtro-card {
   border-radius: 14px;
   background: #ffffff !important;
+  border: 1px solid #ddd6fe;
 }
 
 .filtro-title {
   font-size: 18px;
   font-weight: 700;
-  color: #1f2937;
+  color: #111827;
 }
 </style>
