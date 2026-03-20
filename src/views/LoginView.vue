@@ -76,7 +76,7 @@ export default {
 
   methods: {
     entrar () {
-      if (this.usuario === 'admin' && this.senha === '123') {
+      if (this.usuario === '81180-RICARDO' && this.senha === '221207') {
         this.erro = false
         this.$router.push('/')
         return
@@ -86,6 +86,7 @@ export default {
     }
   }
 }
+
 </script>
 
 <style scoped>

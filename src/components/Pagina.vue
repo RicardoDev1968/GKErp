@@ -32,7 +32,7 @@
 
           <v-card-actions class="justify-end px-4 py-3">
             <v-btn
-              color="#ec4899"
+              color="blue"
               dark
               depressed
             >

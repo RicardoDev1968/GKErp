@@ -4,7 +4,7 @@
       app
       flat
       color="white"
-      height="74"
+      height="75"
       class="topbar"
     >
       <div class="app-logo" @click="$router.push('/')">
@@ -15,13 +15,12 @@
         >
         <span class="logo-text">ERP</span>
       </div>
-
       <v-btn
         icon
-        class="mx-2"
+        class="mx-1"
         color="#8e8e8e"
       >
-        <v-icon>mdi-chevron-left</v-icon>
+        <!-- <v-icon>mdi-chevron-left</v-icon> -->
       </v-btn>
 
       <div class="menu-wrapper">
@@ -35,7 +34,7 @@
           <v-icon
             small
             right
-            color="#0b6835"
+            color="white"
           >
             {{ item.icon }}
           </v-icon>
@@ -58,39 +57,47 @@
       <v-menu offset-y>
         <template #activator="{ on, attrs }">
           <v-btn
-            color="#0b6835"
+            color=""
             dark
             depressed
             class="mr-3 user-sector-btn"
             v-bind="attrs"
             v-on="on"
           >
-            MT
+            LOCAL
             <v-icon right small>mdi-menu-down</v-icon>
           </v-btn>
         </template>
 
         <v-list dense>
           <v-list-item>
-            <v-list-item-title>MT</v-list-item-title>
+            <v-list-item-title>G01</v-list-item-title>
           </v-list-item>
           <v-list-item>
-            <v-list-item-title>ADM</v-list-item-title>
+            <v-list-item-title>R02</v-list-item-title>
           </v-list-item>
         </v-list>
       </v-menu>
 
-      <v-btn icon color="#0b6835" class="mr-2">
+      <v-btn icon color="white" class="mr-2">
         <v-icon>mdi-star</v-icon>
       </v-btn>
 
-      <v-btn icon color="#0b6835" class="mr-3">
+      <v-btn icon color="white" class="mr-3">
         <v-icon>mdi-store</v-icon>
       </v-btn>
 
-      <v-avatar color="#0b6835" size="42" class="user-avatar">
-        <span class="white--text font-weight-bold">RI</span>
-      </v-avatar>
+      <v-btn
+        to="/login"
+        icon
+        class="user-btn"
+      >
+        <v-avatar color="black" size="40" class="user-avatar">
+          <v-icon color="white">
+            mdi-account
+          </v-icon>
+        </v-avatar>
+      </v-btn>
     </v-app-bar>
 
     <v-main class="main-bg">
@@ -105,17 +112,9 @@ export default {
 
   data: () => ({
     menuItems: [
-      { label: 'LOJA', icon: 'mdi-storefront-outline' },
-      { label: 'TRANSPORTE', icon: 'mdi-truck-outline' },
-      { label: 'FINANCEIRO', icon: 'mdi-finance' },
-      { label: 'VENDA ATACADO', icon: 'mdi-cart-outline' },
-      { label: 'TI', icon: 'mdi-monitor-dashboard' },
-      { label: 'PRECIFICAÇÃO', icon: 'mdi-file-document-outline' },
-      { label: 'COMPRAS', icon: 'mdi-package-variant-closed' },
-      { label: 'PCM', icon: 'mdi-tools' },
-      { label: 'CRÉDITO', icon: 'mdi-cash-multiple' },
-      { label: 'DRH', icon: 'mdi-account-group-outline' },
-      { label: 'SEGURANÇA', icon: 'mdi-shield-outline' }
+      { label: 'COMPRAS', icon: 'mdi-cart-outline' },
+      { label: 'CONTAS', icon: 'mdi-cash-multiple' },
+      { label: 'FACULDADE', icon: 'mdi-book' }
     ]
   })
 }
@@ -127,31 +126,35 @@ export default {
   background: linear-gradient(90deg, #111827 0%, #1e1b4b 45%, #312e81 100%) !important;
 }
 
-.main-bg {
-  background: #f5f3ff;
+.topbar :deep(.v-toolbar__content) {
+  padding-left: 8px !important;
+  padding-right: 12px !important;
 }
 
 .app-logo {
   display: flex;
   align-items: center;
+  flex: 0 0 auto;
   cursor: pointer;
-  min-width: 150px;
+  margin: 0;
+  padding: 0;
 }
 
 .logo-img {
-  width: 60px;
-  height: 60px;
+  width: 150px;
+  height: 70px;
   object-fit: contain;
+  display: block;
+  margin: 0;
 }
 
 .logo-text {
-  margin-left: 10px;
-  font-size: 30px;
+  font-size: 26px;
   font-weight: 800;
   color: #ffffff;
-  letter-spacing: 0.5px;
+  margin-left: -18px;
+  line-height: 1;
 }
-
 .menu-wrapper {
   display: flex;
   align-items: center;
@@ -194,7 +197,25 @@ export default {
 }
 
 .user-avatar {
-  background: #2563eb !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
 }
+.user-btn {
+  width: 40px !important;
+  height: 40px !important;
+  min-width: 40px !important;
+  padding: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
 </style>
